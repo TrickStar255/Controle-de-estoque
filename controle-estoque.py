@@ -32,8 +32,11 @@ while True: # Loop infinito para o menu.
         if estoque:
             print("\nEstoque atual:\n") # Informar o estoque atual
             
-            for nome, quantidade in estoque.items(): # Para cada produto no estoque, mostrar o nome e qtd
-                print(f"Produto: {nome} | Quantidade: {quantidade}\n") # Mostrar o nome e a quantidade do produto
+            for nome, quantidade in estoque.items():
+                if quantidade >= 0: # Para cada produto no estoque, mostrar o nome e qtd
+                    print(f"Produto: {nome} | Quantidade: {quantidade}\n")
+                else:
+                    print(f"Produto: {nome} | PENDENTE: {quantidade} (comprar {abs(quantidade)})") # Mostrar o nome e a quantidade do produto
         else:
             print("\nNenhum produto cadastrado no estoque,.\n") # Informar que não há produtos cadastrados no estoque.
 
