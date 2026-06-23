@@ -1,5 +1,14 @@
 # Projeto controle de estoque:
 
+def ler_inteiro(msg):
+    while True:
+        try:
+            return int(input(msg))
+        except ValueError:
+            print("Digite um número válido.")
+
+
+
 estoque = {}    # Um lugar para guardar os produtos.
 
 while True: # Loop infinito para o menu.
@@ -15,7 +24,7 @@ while True: # Loop infinito para o menu.
 
     if opcao == "1": # Cadastrar produto
         nome = input("Digite o nome do produto: ") # Perguntar o nome do produto
-        quantidade = int(input("Quantidade produto: ")) # Perguntar a quantidade do produto
+        quantidade = ler_inteiro("Quantidade produto: ") # Perguntar a quantidade do produto
         estoque[nome] = quantidade # Guardar o produto no estoque, associando o nome à quantidade.
         print("\nCadastrado com sucesso!\n") # Informar que o produto foi cadastrado com sucesso.
             
@@ -30,7 +39,7 @@ while True: # Loop infinito para o menu.
 
     elif opcao == "3": # Entrada de produto
         nome = input("Digite Produto: ")
-        quantidade = int(input("Quantidade: "))
+        quantidade = ler_inteiro("Quantidade: ")
 
         if nome in estoque: # Se o nome esta na lista eu devo.
             estoque[nome] += quantidade # Somo a quantidade do produto digitado se estiver no estoque.
@@ -40,7 +49,7 @@ while True: # Loop infinito para o menu.
 
     elif opcao == "4": # Saída de produto
         nome = input("Digite Produto: ") # Perguntar o nome do produto
-        quantidade = int(input("Quantidade: ")) # Perguntar a quantidade do produto
+        quantidade = ler_inteiro("Quantidade: ") # Perguntar a quantidade do produto
 
         if nome in estoque:
             estoque[nome] -= quantidade # Subtrair a quantidade do produto digitado se estiver no estoque.
