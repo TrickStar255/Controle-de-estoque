@@ -1,12 +1,11 @@
 # Projeto controle de estoque:
 
-def ler_inteiro(msg):
+def ler_inteiro(msg): # Função para ler um número inteiro do usuário, com tratamento de exceção para garantir que o valor digitado seja válido.
     while True:
         try:
             return int(input(msg))
         except ValueError:
             print("Digite um número válido.")
-
 
 
 estoque = {}    # Um lugar para guardar os produtos.
@@ -17,23 +16,27 @@ while True: # Loop infinito para o menu.
     print("2 - Consultar Estoque")   # 2 - Consultar estoque
     print("3 - Entrada de Produto")  # 3 - Entrada de produto
     print("4 - Saída de Produto")  # 4 - Saída de produto
-    print("5 - Sair\n")   # 5 - Sair
+    print("5 - Sair\n")  # 5 - Sair
 
     opcao = input("Escolha uma opção: ") # Perguntar a opção para o usuário
 
 
     if opcao == "1": # Cadastrar produto
-        nome = input("Digite o nome do produto: ") # Perguntar o nome do produto
-        quantidade = ler_inteiro("Quantidade produto: ") # Perguntar a quantidade do produto
-        estoque[nome] = quantidade # Guardar o produto no estoque, associando o nome à quantidade.
-        print("\nCadastrado com sucesso!\n") # Informar que o produto foi cadastrado com sucesso.
+        nome = input("Digite o nome do produto: ").strip().lower() # Perguntar o nome do produto
+
+        if nome in estoque:
+            print(f"\n Este produto já está cadastrado!\n")
+        else:
+            quantidade = ler_inteiro("Quantidade produto: ") # Perguntar a quantidade do produto
+            estoque[nome] = quantidade # Guardar o produto no estoque, associando o nome à quantidade.
+            print("\nCadastrado com sucesso!\n") # Informar que o produto foi cadastrado com sucesso.
             
     elif opcao == "2": # Consultar estoque
         if estoque:
             print("\nEstoque atual:\n") # Informar o estoque atual
             
             for nome, quantidade in estoque.items():
-                if quantidade >= 0: # Para cada produto no estoque, mostrar o nome e qtd
+                if quantidade >= 0: # Se a quantidade for maior ou igual a zero, mostrar o nome e a quantidade do produto
                     print(f"Produto: {nome} | Quantidade: {quantidade}\n")
                 else:
                     print(f"Produto: {nome} | PENDENTE: {quantidade} (comprar {abs(quantidade)})") # Mostrar o nome e a quantidade do produto
