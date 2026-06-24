@@ -11,8 +11,7 @@ def carregar_estoque():
             return json.load(arquivo)
     except:
         return {}
-
-
+    
 def ler_inteiro(msg):
     while True:
         try:
@@ -22,6 +21,7 @@ def ler_inteiro(msg):
 
 def ler_nome(msg):
     return input(msg).strip().lower()
+
 
 def cadastrar_produto():
     nome = ler_nome("Digite o nome do produto: ")
@@ -57,6 +57,22 @@ def entrada_de_produto():
     else:
         print(f"\nProduto {nome} não encontrado no estoque. Cadastre o produto primeiro.\n")
 
+def excluir_produto():
+    nome = ler_nome("Digite o nome do produto a ser excluído: ")
+
+    if nome in estoque:
+        resposta = input(f"\nProduo {nome} foi encontrado. Deseja excluir? (s/n): ")
+
+        if resposta.strip().lower() == "s":
+            del estoque[nome]
+            salvar_estoque()
+            print(f"\nProduto {nome} excluído do estoque.\n")
+        else:
+            print("\nExclusão cancelada!\n")
+            
+    else: 
+        print(f"\nProduto {nome} não encontrado no estoque.\n")
+
 def saida_de_produto():
     nome = ler_nome("Digite o nome do produto: ")
     quantidade = ler_inteiro("Quantidade: ")
@@ -79,7 +95,8 @@ while True:
     print("2 - Consultar Estoque")
     print("3 - Entrada de Produto")
     print("4 - Saída de Produto")
-    print("5 - Sair\n")
+    print("5 - Excluir Produto")
+    print("6 - Sair\n")
 
     opcao = input("Escolha uma opção: ")
 
@@ -91,7 +108,9 @@ while True:
         entrada_de_produto()   
     elif opcao == "4":
         saida_de_produto()
-    elif opcao == "5": # Sair
+    elif opcao == "5":
+        excluir_produto()
+    elif opcao == "6": # Sair
         print("Saindo do programa...")
         break
     else:
