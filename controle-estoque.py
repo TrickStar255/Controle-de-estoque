@@ -1,4 +1,18 @@
 # Projeto controle de estoque:
+import json
+
+def salvar_estoque():
+    with open("estoque.json", "w") as arquivo:
+        json.dump(estoque, arquivo, indent=4)
+
+def carregar_estoque():
+    try:
+        with open("estoque.json", "r") as arquivo:
+            return json.load(arquivo)
+    except:
+        return {}
+
+
 def ler_inteiro(msg):
     while True:
         try:
@@ -17,6 +31,7 @@ def cadastrar_produto():
     else:
         quantidade = ler_inteiro("Quantidade produto: ")
         estoque[nome] = quantidade 
+        salvar_estoque()
         print("\nCadastrado com sucesso!\n")
 
 def consultar_estoque():
@@ -37,6 +52,7 @@ def entrada_de_produto():
 
     if nome in estoque:
         estoque[nome] += quantidade
+        salvar_estoque()
         print(f"\nEntrou {quantidade} unidades do produto {nome} no estoque.\n")
     else:
         print(f"\nProduto {nome} não encontrado no estoque. Cadastre o produto primeiro.\n")
@@ -47,11 +63,15 @@ def saida_de_produto():
 
     if nome in estoque:
         estoque[nome] -= quantidade
+
+        salvar_estoque()
         print(f"\nSaíram {quantidade} unidades do produto {nome} do estoque.\n")
+   
     else:
         print(f"\nProduto {nome} não encontrado no estoque. Cadastre o produto primeiro.\n")
 
-estoque = {}
+
+estoque = carregar_estoque()
 
 while True:
     print ("=== CONTROLE DE ESTOQUE ===\n")
@@ -64,19 +84,15 @@ while True:
     opcao = input("Escolha uma opção: ")
 
     if opcao == "1":
-        cadastrar_produto()
-            
+        cadastrar_produto()   
     elif opcao == "2":
         consultar_estoque()
-
     elif opcao == "3":
         entrada_de_produto()   
-
     elif opcao == "4":
         saida_de_produto()
-
     elif opcao == "5": # Sair
         print("Saindo do programa...")
         break
     else:
-        print("\nOpção inválida. Por favor, escolha uma opção válida.\n")''
+        print("\nOpção inválida. Por favor, escolha uma opção válida.\n")
