@@ -1,0 +1,36 @@
+from flask import Flask, render_template, request, redirect
+import json
+
+app = Flask(__name__)
+
+def carregar_estoque():
+    try:
+        with open("estoque.json", "r") as arquivo:
+            return json.load(arquivo)
+    except:
+        return {}
+
+def salvar_estoque(estoque):
+    with open("estoque.json", "w") as arquivo:
+        json.dump(estoque, arquivo, indent=4)
+
+@app.route("/")
+def index():
+    estoque = carregar_estoque()
+    return render_template("index.html", estoque=estoque)
+
+@app.route("/cadastrar", methods=["POST"])
+def cadastrar():
+    estoque = carregar_estoque()
+
+    nome = request.form["nome"]
+    quantidade = int(request.form["quantidade"])
+
+    estoque[nome] = quantidade
+
+    salvar_estoque(estoque)
+
+    return redirect("/")
+
+if __name__ =="__main__":
+    app.run(debug=True)

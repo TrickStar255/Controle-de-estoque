@@ -98,7 +98,7 @@ while True:
     print("5 - Excluir Produto")
     print("6 - Sair\n")
 
-    opcao = input("Escolha uma opção: ")
+    opcao = input ("Escolha uma opção: ")
 
     if opcao == "1":
         cadastrar_produto()   

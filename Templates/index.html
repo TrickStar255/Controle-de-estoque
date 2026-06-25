@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Controle de Estoque</h1>
+    <p>Meu primeiro sistema Flask</p>
+
+    <h2>Cadastrar Produto</h2>
+
+    <form action="/cadastrar" method="POST">
+        <label>Nome do Produto:</label>
+        <input type="text" name="nome">
+        <br><br>
+
+        <label>Quantidade:</label>
+        <input type="number" name="quantidade">
+        <br><br>
+        
+        <button type="submit">Cadastrar</button>
+        <br><br>
+        
+    </form>
+    
+    <hr>
+
+    <h2>Produtos</h2>
+
+    <ul>
+        {% for nome, quantidade in estoque.items() %}
+            <li>{{ nome }}: {{ quantidade }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
