@@ -11,6 +11,9 @@
 
     <h2>Cadastrar Produto</h2>
 
+    <hr>
+
+    
     <form action="/cadastrar" method="POST">
         <label>Nome do Produto:</label>
         <input type="text" name="nome">
@@ -22,17 +25,62 @@
         
         <button type="submit">Cadastrar</button>
         <br><br>
-        
     </form>
     
+    <hr>
+    
+    <h3>Entrada de Produto</h3>
+    <form action="/entrada" method="POST">
+        <label>Nome do Produto:</label>
+        <input type="text" name="nome">
+        <br><br>
+
+        <label>Quantidade: </label>
+        <input type="number" name="quantidade">
+        <br><br>
+
+        <button type="submit">Entrada</button>
+    </form>
+
+    <br>
+    <hr>
+
+    <h3>Saída de Produto</h3>
+    <form action="/saida" method="POST">
+        <label>Nome do Produto:</label>
+        <input type="text" name="nome">
+        <br><br>
+
+        <label>Quantidade: </label>
+        <input type="number" name="quantidade">
+        <br><br>
+
+        <button type="submit">Saída</button>
+    </form>
+
+    <br>
     <hr>
 
     <h2>Produtos</h2>
 
     <ul>
         {% for nome, quantidade in estoque.items() %}
-            <li>{{ nome }}: {{ quantidade }}</li>
+            <li>
+                {{ nome }}: {{ quantidade }}
+
+                <form action="/excluir" method="POST">
+                    <input type="hidden" name="nome" value="{{ nome }}">
+                    <button type=submit>Excluir</button>
+                </form>
+            </li>
         {% endfor %}
+
+        
     </ul>
+
+   
+
+
+
 </body>
 </html>

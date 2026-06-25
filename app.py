@@ -32,5 +32,42 @@ def cadastrar():
 
     return redirect("/")
 
+@app.route("/entrada", methods=["POST"])
+def entrada():
+    estoque = carregar_estoque()
+
+    nome = request.form["nome"]
+    quantidade = int(request.form["quantidade"])
+
+    if nome in estoque:
+        estoque[nome] += quantidade
+        salvar_estoque(estoque)
+
+    return redirect("/")
+    
+@app.route("/saida", methods=["POST"])
+def saida():
+    estoque = carregar_estoque()
+
+    nome = request.form["nome"]
+    quantidade = int(request.form["quantidade"])
+
+    if nome in estoque:
+        estoque[nome] -= quantidade
+        salvar_estoque(estoque)
+
+    return redirect("/")
+
+@app.route("/excluir", methods=["POST"])
+def excluir():
+    estoque = carregar_estoque()
+
+    nome = request.form["nome"]
+
+    if nome in estoque:
+        del estoque[nome]
+        salvar_estoque(estoque)
+    return redirect("/")
+
 if __name__ =="__main__":
     app.run(debug=True)

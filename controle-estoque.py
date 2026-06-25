@@ -57,6 +57,19 @@ def entrada_de_produto():
     else:
         print(f"\nProduto {nome} não encontrado no estoque. Cadastre o produto primeiro.\n")
 
+def saida_de_produto():
+    nome = ler_nome("Digite o nome do produto: ")
+    quantidade = ler_inteiro("Quantidade: ")
+
+    if nome in estoque:
+        estoque[nome] -= quantidade
+
+        salvar_estoque()
+        print(f"\nSaíram {quantidade} unidades do produto {nome} do estoque.\n")
+   
+    else:
+        print(f"\nProduto {nome} não encontrado no estoque. Cadastre o produto primeiro.\n")
+
 def excluir_produto():
     nome = ler_nome("Digite o nome do produto a ser excluído: ")
 
@@ -72,19 +85,6 @@ def excluir_produto():
             
     else: 
         print(f"\nProduto {nome} não encontrado no estoque.\n")
-
-def saida_de_produto():
-    nome = ler_nome("Digite o nome do produto: ")
-    quantidade = ler_inteiro("Quantidade: ")
-
-    if nome in estoque:
-        estoque[nome] -= quantidade
-
-        salvar_estoque()
-        print(f"\nSaíram {quantidade} unidades do produto {nome} do estoque.\n")
-   
-    else:
-        print(f"\nProduto {nome} não encontrado no estoque. Cadastre o produto primeiro.\n")
 
 
 estoque = carregar_estoque()
