@@ -38,6 +38,8 @@ def entrada():
 
     nome = request.form["nome"]
     quantidade = int(request.form["quantidade"])
+    if quantidade < 1:
+        return  redirect("/")
 
     if nome in estoque:
         estoque[nome] += quantidade
@@ -51,6 +53,8 @@ def saida():
 
     nome = request.form["nome"]
     quantidade = int(request.form["quantidade"])
+    if quantidade < 1:
+        return redirect("/")
 
     if nome in estoque:
         estoque[nome] -= quantidade
