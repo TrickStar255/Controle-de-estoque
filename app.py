@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, flash
 import json
 
 app = Flask(__name__)
+app.secret_key = "123456"
 
 def carregar_estoque():
     try:
@@ -24,6 +25,10 @@ def cadastrar():
     estoque = carregar_estoque()
 
     nome = request.form["nome"]
+    if nome in estoque:
+        flash("Produto já está cadastrado!", "danger")
+        return redirect("/")
+    
     quantidade = int(request.form["quantidade"])
 
     estoque[nome] = quantidade
