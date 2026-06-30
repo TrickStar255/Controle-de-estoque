@@ -7,9 +7,18 @@ app.secret_key = "123456"
 def carregar_estoque():
     try:
         with open("estoque.json", "r") as arquivo:
-            return json.load(arquivo)
+            dados = json.load(arquivo)
+        
+        estoque_normalizado = {}
+
+        for nome, qtd in dados.items():
+            nome_normalizado = nome.strip().lower()
+            estoque_normalizado[nome_normalizado] = qtd
+
+        return estoque_normalizado
+    
     except:
-        return {}
+        return{}
 
 def salvar_estoque(estoque):
     with open("estoque.json", "w") as arquivo:
@@ -20,11 +29,14 @@ def index():
     estoque = carregar_estoque()
     return render_template("index.html", estoque=estoque)
 
+def normalizar_nome(nome):
+    return nome.strip().lower()
+
 @app.route("/cadastrar", methods=["POST"])
 def cadastrar():
     estoque = carregar_estoque()
 
-    nome = request.form["nome"]
+    nome = normalizar_nome(request.form["nome"])
     if nome in estoque:
         flash("Produto já está cadastrado!", "danger")
         return redirect("/")
@@ -41,7 +53,7 @@ def cadastrar():
 def entrada():
     estoque = carregar_estoque()
 
-    nome = request.form["nome"]
+    nome = normalizar_nome (request.form["nome"])
     quantidade = int(request.form["quantidade"])
     if quantidade < 1:
         return  redirect("/")
@@ -56,7 +68,7 @@ def entrada():
 def saida():
     estoque = carregar_estoque()
 
-    nome = request.form["nome"]
+    nome = normalizar_nome (request.form["nome"])
     quantidade = int(request.form["quantidade"])
     if quantidade < 1:
         return redirect("/")
@@ -71,7 +83,7 @@ def saida():
 def excluir():
     estoque = carregar_estoque()
 
-    nome = request.form["nome"]
+    nome = normalizar_nome(request.form["nome"])
 
     if nome in estoque:
         del estoque[nome]
