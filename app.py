@@ -42,11 +42,15 @@ def cadastrar():
         return redirect("/")
     
     quantidade = int(request.form["quantidade"])
+    if quantidade < 0:
+        flash("Quantidade não pode ser negativa!", "danger")
+        return  redirect("/")
 
     estoque[nome] = quantidade
 
     salvar_estoque(estoque)
-
+    flash("Produto cadastrado com sucesso!", "success")
+    
     return redirect("/")
 
 @app.route("/entrada", methods=["POST"])
@@ -56,11 +60,15 @@ def entrada():
     nome = normalizar_nome (request.form["nome"])
     quantidade = int(request.form["quantidade"])
     if quantidade < 1:
+        flash("Quantidade inválida!", "danger")
         return  redirect("/")
 
     if nome in estoque:
         estoque[nome] += quantidade
         salvar_estoque(estoque)
+        flash("Entrada registrada com sucesso!", "success")
+    else:
+        flash("Produto não encontrado!", "danger")
 
     return redirect("/")
     
@@ -71,11 +79,15 @@ def saida():
     nome = normalizar_nome (request.form["nome"])
     quantidade = int(request.form["quantidade"])
     if quantidade < 1:
+        flash("Quantidade inválida!", "danger")
         return redirect("/")
 
     if nome in estoque:
         estoque[nome] -= quantidade
         salvar_estoque(estoque)
+        flash("Saída registrada com sucesso!", "success")
+    else:
+        flash("Produto não encontrado!", "danger")
 
     return redirect("/")
 
@@ -88,6 +100,10 @@ def excluir():
     if nome in estoque:
         del estoque[nome]
         salvar_estoque(estoque)
+        flash("Produto excluído com sucesso!", "success")
+
+    else:
+        flash("Produto não encontrado!", "danger")
     return redirect("/")
 
 if __name__ =="__main__":
