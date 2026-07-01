@@ -1,97 +1,117 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
+
 <body>
-    <h1>Controle de Estoque</h1>
 
-    {% with mensagens = get_flashed_messages(with_categories=true) %}
+    <div class="container">
 
-        {% if mensagens %}
+        <h1>Controle de Estoque</h1>
 
-            {% for categoria, mensagem in mensagens %}
+        {% with mensagens = get_flashed_messages(with_categories=true) %}
+            {% if mensagens %}
+                {% for categoria, mensagem in mensagens %}
+                    <p>{{ mensagem }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
 
-                <p> {{ mensagem }} </p>
+        <hr>
 
-            {% endfor %}
+        <div class="card">
+            <h2>Cadastrar Produto</h2>
 
-        {% endif %}
+            <form action="/cadastrar" method="POST">
 
-    {% endwith %}
-    
-    <hr>
+                <label>Nome do Produto:</label>
+                <input type="text" name="nome" required>
 
-    <h2>Cadastrar Produto</h2>
-    <form action="/cadastrar" method="POST">
-        <label>Nome do Produto:</label>
-        <input type="text" name="nome" required>
-        <br><br>
+                <br><br>
 
-        <label>Quantidade:</label>
-        <input type="number" name="quantidade"  min="0" required>
-        <br><br>
-        
-        <button type="submit">Cadastrar</button>
-        <br><br>
-    </form>
-    
-    <hr>
+                <label>Quantidade:</label>
+                <input type="number" name="quantidade" min="0" required>
 
-    <h3>Entrada de Produto</h3>
+                <br><br>
 
-    <form action="/entrada" method="POST">
-        <label>Nome do Produto:</label>
-        <input type="text" name="nome" required>
-        <br><br>
+                <button type="submit">Cadastrar</button>
 
-        <label>Quantidade: </label>
-        <input type="number" name="quantidade" min="1" required>
-        <br><br>
+            </form>
+        </div>
 
-        <button type="submit">Entrada</button>
-    </form>
+        <hr>
 
-    <br>
-    <hr>
+        <div class="card">
+            <h2>Entrada de Produto</h2>
 
-    <h3>Saída de Produto</h3>
-    <form action="/saida" method="POST">
-        <label>Nome do Produto:</label>
-        <input type="text" name="nome" required>
-        <br><br>
+            <form action="/entrada" method="POST">
 
-        <label>Quantidade: </label>
-        <input type="number" name="quantidade" min="1" required>
-        <br><br>
+                <label>Nome do Produto:</label>
+                <input type="text" name="nome" required>
 
-        <button type="submit">Saída</button>
-    </form>
+                <br><br>
 
-    <br>
-    <hr>
+                <label>Quantidade:</label>
+                <input type="number" name="quantidade" min="1" required>
 
-    <h2>Produtos</h2>
-    <ul>
-        {% for nome, quantidade in estoque.items() %}
-            <li>
-                {{ nome }}: {{ quantidade }}
+                <br><br>
 
-                <form action="/excluir" method="POST">
-                    <input type="hidden" name="nome" value="{{ nome }}">
-                    <button type=submit>Excluir</button>
-                </form>
-            </li>
-        {% endfor %}
+                <button type="submit">Entrada</button>
 
-        
-    </ul>
+            </form>
+        </div>
 
-   
+        <hr>
 
+        <div class="card">
+            <h2>Saída de Produto</h2>
 
+            <form action="/saida" method="POST">
+
+                <label>Nome do Produto:</label>
+                <input type="text" name="nome" required>
+
+                <br><br>
+
+                <label>Quantidade:</label>
+                <input type="number" name="quantidade" min="1" required>
+
+                <br><br>
+
+                <button type="submit">Saída</button>
+
+            </form>
+        </div>
+
+        <hr>
+
+        <div class="card">
+            <h2>Produtos</h2>
+
+            <ul>
+                {% for nome, quantidade in estoque.items() %}
+                    <li>
+                        {{ nome }}: {{ quantidade }}
+
+                        <form action="/excluir" method="POST">
+                            <input type="hidden" name="nome" value="{{ nome }}">
+                            <button type="submit">Excluir</button>
+                        </form>
+
+                    </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+
+    </div>
 
 </body>
+
 </html>
