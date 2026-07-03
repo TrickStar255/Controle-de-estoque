@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Controle de Estoque</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
@@ -13,102 +13,142 @@
 
     <div class="container">
 
-        <h1>Controle de Estoque</h1>
+        <header>
 
-        {% with mensagens = get_flashed_messages(with_categories=true) %}
-            {% if mensagens %}
-                {% for categoria, mensagem in mensagens %}
-                    <p>{{ mensagem }}</p>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
+            <h1>Controle de Estoque</h1>
 
-        <hr>
+        </header>
 
-        <div class="card">
-            <h2>Cadastrar Produto</h2>
 
-            <form action="/cadastrar" method="POST">
+        <section class="mensagens">
 
-                <label>Nome do Produto:</label>
-                <input type="text" name="nome" required>
+            {% with mensagens = get_flashed_messages(with_categories=true) %}
+                {% if mensagens %}
+                    {% for categoria, mensagem in mensagens %}
 
-                <br><br>
+                        <p
+                    
+                            class="{{ categoria }}">
+                            {{ mensagem }}
+                        </p>
 
-                <label>Quantidade:</label>
-                <input type="number" name="quantidade" min="0" required>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
 
-                <br><br>
+        </section>
 
-                <button type="submit">Cadastrar</button>
 
-            </form>
-        </div>
+        <section class="cards">
 
-        <hr>
+            <div class="card">
 
-        <div class="card">
-            <h2>Entrada de Produto</h2>
+                <h2>Cadastrar Produto</h2>
 
-            <form action="/entrada" method="POST">
+                <form action="/cadastrar" method="POST">
 
-                <label>Nome do Produto:</label>
-                <input type="text" name="nome" required>
+                    <label>Nome do Produto:</label>
+                    <input type="text" name="nome" required>
 
-                <br><br>
 
-                <label>Quantidade:</label>
-                <input type="number" name="quantidade" min="1" required>
+                    <label>Quantidade:</label>
+                    <input type="number" name="quantidade" min="0" required>
 
-                <br><br>
+                    <button type="submit">Cadastrar</button>
 
-                <button type="submit">Entrada</button>
+                </form>
 
-            </form>
-        </div>
+            </div>
 
-        <hr>
 
-        <div class="card">
-            <h2>Saída de Produto</h2>
+            <div class="card">
 
-            <form action="/saida" method="POST">
+                <h2>Entrada de Produto</h2>
 
-                <label>Nome do Produto:</label>
-                <input type="text" name="nome" required>
+                <form action="/entrada" method="POST">
 
-                <br><br>
+                    <label>Nome do Produto:</label>
+                    <input type="text" name="nome" required>
 
-                <label>Quantidade:</label>
-                <input type="number" name="quantidade" min="1" required>
 
-                <br><br>
+                    <label>Quantidade:</label>
+                    <input type="number" name="quantidade" min="1" required>
 
-                <button type="submit">Saída</button>
 
-            </form>
-        </div>
+                    <button type="submit">Entrada</button>
 
-        <hr>
+                </form>
 
-        <div class="card">
+            </div>
+
+
+            <div class="card">
+
+                <h2>Saída de Produto</h2>
+
+                <form action="/saida" method="POST">
+
+                    <label>Nome do Produto:</label>
+                    <input type="text" name="nome" required>
+
+
+                    <label>Quantidade:</label>
+                    <input type="number" name="quantidade" min="1" required>
+
+
+                    <button type="submit">Saída</button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+        <section class="produtos">
+
             <h2>Produtos</h2>
 
-            <ul>
-                {% for nome, quantidade in estoque.items() %}
-                    <li>
-                        {{ nome }}: {{ quantidade }}
+            <table>
+                <tr>
 
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                    <th>Ação</th>
+
+                </tr>
+
+                {% for nome, quantidade in estoque.items() %}
+
+                 <tr>
+                    <td>{{ nome }}</td>
+                    <td>{{ quantidade }}</td>
+
+                    <td>
                         <form action="/excluir" method="POST">
+
                             <input type="hidden" name="nome" value="{{ nome }}">
-                            <button type="submit">Excluir</button>
+
+                            <button class="btn-excluir" type="submit">Excluir</button>
+
                         </form>
 
-                    </li>
-                {% endfor %}
-            </ul>
+                    </td>
 
-        </div>
+                </tr>
+
+                {% endfor %}
+
+            </table>
+
+        </section>
+
+
+        <footer>
+
+            <!-- Rodapé (vamos usar futuramente) -->
+
+        </footer>
 
     </div>
 

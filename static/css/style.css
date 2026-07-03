@@ -1,3 +1,7 @@
+/* ==========================
+   GERAL
+========================== */
+
 body {
     background-color: #f4f4f4;
     font-family: Arial, sans-serif;
@@ -11,17 +15,143 @@ body {
     border-radius: 10px;
 }
 
+
+/* ==========================
+   TÍTULOS
+========================== */
+
 h1 {
     font-size: 50px;
     color: #2c3e50;
     text-align: justify;
-    margin-bottom:30px; 
+    margin-bottom: 30px;
+}
+
+
+/* ==========================
+   CARDS
+========================== */
+
+.cards {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 }
 
 .card {
+    flex: 1;
     background-color: white;
     padding: 20px;
-    border-radius: 8px;
     margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
 
+.card h2 {
+    margin-top: 0;
+    color: #2c3e50;
+    font-size: 24px;
+}
+
+
+/* ==========================
+   FORMULÁRIOS
+========================== */
+
+.card label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.card input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+
+/* ==========================
+   BOTÕES
+========================== */
+
+.card button {
+    width: 100%;
+    padding: 10px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.card button:hover {
+    background-color: #1d4ed8;
+}
+
+.btn-excluir {
+    background-color: white;
+    color: red;
+    border: 2px solid red;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-excluir:hover {
+    background-color: red;
+    color: white;
+}
+
+
+/* ==========================
+   MENSAGENS
+========================== */
+
+.success,
+.danger {
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.success {
+    background-color: lightgreen;
+    color: #065f46;
+}
+
+.danger {
+    background-color: lightcoral;
+    color: #7f1d1d;
+}
+
+
+/* ==========================
+   TABELA
+========================== */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    padding: 15px;
+    background-color: #2c3e50;
+    color: white;
+    text-align: left;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
 }
