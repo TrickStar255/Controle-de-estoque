@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Controle de Estoque</title>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
@@ -15,7 +17,11 @@
 
         <header>
 
-            <h1>Controle de Estoque</h1>
+            <h1>
+                
+                <i class="fa-solid fa-box-archive"></i>Controle de Estoque
+            
+            </h1>
 
         </header>
 
@@ -43,7 +49,9 @@
 
             <div class="card">
 
-                <h2>Cadastrar Produto</h2>
+                <h2>
+                    <i class="fa-solid fa-inbox"></i>Cadastrar Produto
+                </h2>
 
                 <form action="/cadastrar" method="POST">
 
@@ -54,7 +62,12 @@
                     <label>Quantidade:</label>
                     <input type="number" name="quantidade" min="0" required>
 
-                    <button type="submit">Cadastrar</button>
+                    <button class="btn-principal" type="submit">
+                        
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        Cadastrar
+                    
+                    </button>
 
                 </form>
 
@@ -63,7 +76,11 @@
 
             <div class="card">
 
-                <h2>Entrada de Produto</h2>
+                <h2>
+
+                    <i class="fa-solid fa-right-to-bracket"></i>Entrada de Produto
+
+                </h2>
 
                 <form action="/entrada" method="POST">
 
@@ -75,7 +92,11 @@
                     <input type="number" name="quantidade" min="1" required>
 
 
-                    <button type="submit">Entrada</button>
+                    <button class="btn-principal" type="submit">
+                        
+                         <i class="fa-solid fa-right-to-bracket"></i>Entrada
+                        
+                    </button>
 
                 </form>
 
@@ -84,7 +105,11 @@
 
             <div class="card">
 
-                <h2>Saída de Produto</h2>
+                <h2>
+                    
+                    <i class="fa-solid fa-right-from-bracket"></i>Saída de Produto
+                
+                </h2>
 
                 <form action="/saida" method="POST">
 
@@ -95,8 +120,11 @@
                     <label>Quantidade:</label>
                     <input type="number" name="quantidade" min="1" required>
 
-
-                    <button type="submit">Saída</button>
+                    <button class="btn-principal" type="submit">
+                        
+                        <i class="fa-solid fa-right-from-bracket"></i>Saída
+                        
+                    </button>
 
                 </form>
 
@@ -106,41 +134,51 @@
 
 
         <section class="produtos">
+            <div class="card">
+                <h2>
 
-            <h2>Produtos</h2>
+                    <i class="fa-solid fa-boxes-stacked"></i>Produtos
+                
+                </h2>
 
-            <table>
-                <tr>
+                <table>
+                    <tr>
 
-                    <th>Produto</th>
-                    <th>Quantidade</th>
-                    <th>Ação</th>
+                        <th>Produto</th>
+                        <th>Quantidade</th>
+                        <th>Ação</th>
 
-                </tr>
+                    </tr>
 
-                {% for nome, quantidade in estoque.items() %}
+                    {% for nome, quantidade in estoque.items() %}
 
-                 <tr>
-                    <td>{{ nome }}</td>
-                    <td>{{ quantidade }}</td>
+                    <tr>
+                        <td>{{ nome }}</td>
+                        <td>{{ quantidade }}</td>
 
-                    <td>
-                        <form action="/excluir" method="POST">
+                        <td>
+                            <form action="/excluir" method="POST">
 
-                            <input type="hidden" name="nome" value="{{ nome }}">
+                                <input type="hidden" name="nome" value="{{ nome }}">
 
-                            <button class="btn-excluir" type="submit">Excluir</button>
+                                <button class="btn-excluir" type="submit">
+                                    
+                                    <i class="fa-regular fa-trash-can"></i>
+                                    Excluir
+                                    
+                                </button>
 
-                        </form>
+                            </form>
 
-                    </td>
+                        </td>
 
-                </tr>
+                    </tr>
 
-                {% endfor %}
+                    {% endfor %}
 
-            </table>
-
+                </table>
+            </div>
+            
         </section>
 
 
