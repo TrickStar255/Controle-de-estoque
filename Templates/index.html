@@ -141,6 +141,24 @@
                 
                 </h2>
 
+                <form action="/buscar" method="POST">
+
+                    <label for="campo-busca">
+                        <i class="fa-solid fa-magnifying-glass"></i> Buscar Produto:
+                    </label>
+
+                    <input type="text" id="campo-busca" name="pesquisa" placeholder="Ex: Arroz" required>
+
+                    <div>
+
+                        <button class="btn-pesquisar" type="submit">Pesquisar</button>
+                        <a href="/" class="btn-mostrar">Mostrar Todos</a>
+
+                    </div>
+
+                </form>
+
+            
                 <table>
                     <tr>
 
@@ -161,7 +179,7 @@
 
                                 <input type="hidden" name="nome" value="{{ nome }}">
 
-                                <button class="btn-excluir" type="submit">
+                                <button class="btn-excluir" type="submit" onclick="return confirm('Tem certeza que deseja excluir este produto?')">
                                     
                                     <i class="fa-regular fa-trash-can"></i>
                                     Excluir

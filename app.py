@@ -106,5 +106,19 @@ def excluir():
         flash("Produto não encontrado!", "danger")
     return redirect("/")
 
+
+@app.route("/buscar", methods=["POST"])
+def buscar():
+    estoque = carregar_estoque()
+    pesquisa = normalizar_nome(request.form["pesquisa"])
+   
+    if pesquisa in estoque:
+        resultado = {pesquisa: estoque[pesquisa]}
+        return render_template ("index.html", estoque=resultado)
+    else:
+        flash("Produto não encontrado!", "danger")
+    return redirect("/")
+
+
 if __name__ =="__main__":
     app.run(debug=True)
