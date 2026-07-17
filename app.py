@@ -106,7 +106,6 @@ def excluir():
         flash("Produto não encontrado!", "danger")
     return redirect("/")
 
-
 @app.route("/buscar", methods=["POST"])
 def buscar():
     estoque = carregar_estoque()
@@ -118,6 +117,42 @@ def buscar():
     else:
         flash("Produto não encontrado!", "danger")
     return redirect("/")
+
+@app.route("/editar/<nome>", methods=["GET", "POST"])
+def editar(nome):
+
+    estoque = carregar_estoque()
+    nome = normalizar_nome(nome)
+
+    if nome not in estoque:
+        flash("Produto não encontrado!", "danger")
+        return redirect("/")
+
+    if request.method == "POST":
+
+        novo_nome = normalizar_nome(request.form["nome"])
+        nova_quantidade = int(request.form["quantidade"])
+
+        # Atualiza o produto
+        estoque[novo_nome] = nova_quantidade
+
+        # Se o nome mudou, remove o antigo
+        if novo_nome != nome:
+            del estoque[nome]
+
+        salvar_estoque(estoque)
+
+        flash("Produto atualizado com sucesso!", "success")
+
+        return redirect("/")
+
+    quantidade = estoque[nome]
+
+    return render_template(
+        "editar.html",
+        nome=nome,
+        quantidade=quantidade
+    )
 
 
 if __name__ =="__main__":

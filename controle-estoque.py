@@ -1,4 +1,3 @@
-# Projeto controle de estoque:
 import json
 
 def salvar_estoque():

@@ -155,6 +155,7 @@
                         <a href="/" class="btn-mostrar">Mostrar Todos</a>
 
                     </div>
+                    
 
                 </form>
 
@@ -175,6 +176,12 @@
                         <td>{{ quantidade }}</td>
 
                         <td>
+
+                            <a href="/editar/{{nome}}" class="btn-editar">
+                                <i class="fa-solid fa-pen"></i>
+                                Editar 
+                            </a>
+
                             <form action="/excluir" method="POST">
 
                                 <input type="hidden" name="nome" value="{{ nome }}">
